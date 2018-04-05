@@ -1,5 +1,7 @@
 package astoria.entity;
 
+import astoria.dummymaker.annotation.string.GenAttachmentType;
+import astoria.dummymaker.annotation.string.GenFileType;
 import astoria.dummymaker.annotation.string.GenName;
 import astoria.dummymaker.annotation.time.GenDate;
 import astoria.interfaces.Entity;
@@ -20,8 +22,9 @@ public class Attachment implements Entity {
     @Id
     @GeneratedValue
     private Long id;
-    @GenName
+    @GenAttachmentType
     private String filename;
+    @GenFileType
     private FileType fileType = FileType.IMAGE;
     @GenPhrase
     private String description;

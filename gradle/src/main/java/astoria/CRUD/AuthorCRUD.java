@@ -21,8 +21,8 @@ public class AuthorCRUD extends GenericService<Author> {
     }
 
     @Override
-    public void link(Author author, Entity page, Entity attachment) {
-        author.created((Page)page, (Attachment)attachment);
+    public void link(Author author, Author owner, Entity page, Entity attachment) {
+        author.created(owner, (Page)page, (Attachment)attachment);
     }
 
     @Override

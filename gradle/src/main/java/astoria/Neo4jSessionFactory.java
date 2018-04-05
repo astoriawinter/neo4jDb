@@ -36,7 +36,7 @@ public class Neo4jSessionFactory {
         for (Author a: authors) {
             Comment comment = null;
             Page page = null;
-            Attachment attachment = null;
+            Attachment attachment;
             for (int i = 0; i < pages.size() / authors.size(); i++) {
                 pageGen = rand.nextInt(30);
                 attGen = rand.nextInt(5);
@@ -46,7 +46,7 @@ public class Neo4jSessionFactory {
                 comment = comments.get(commGen);
                 page = pages.get(pageGen);
                 attachment = attachments.get(attGen);
-                authorCRUD.link(a, page, attachment);
+                authorCRUD.link(a, authors.get(spaceGen), page, attachment);
                 commentCRUD.link(comment, a, page);
                 pageCRUD.link(page, attachment, spaces.get(spaceGen), pages.get(crossedLinks));
             }

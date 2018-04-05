@@ -34,9 +34,12 @@ abstract class GenericService<T> implements CRUDService<T> {
         }
         return null;
     }
-
     @Override
     public void link(T object, Entity entity, Entity linked) {
+    }
+
+    @Override
+    public void link(T object, T owner, Entity entity, Entity linked) {
     }
 
     @Override

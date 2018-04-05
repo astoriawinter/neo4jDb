@@ -2,6 +2,8 @@ package astoria.entity;
 import astoria.dummymaker.annotation.string.GenName;
 import astoria.dummymaker.annotation.string.GenNick;
 import astoria.dummymaker.annotation.string.GenTag;
+import astoria.dummymaker.factory.IPopulateFactory;
+import astoria.dummymaker.factory.impl.GenPopulateFactory;
 import astoria.entity.relationships.CreationRelationship;
 import astoria.entity.relationships.UploadRelationship;
 import astoria.interfaces.Entity;
@@ -28,13 +30,19 @@ public class Author implements Entity {
     private Set<UploadRelationship> attachments = new HashSet<>();
     public Author() {
     }
-    public void created(Page page, Attachment attachment) {
-        pages.add(new CreationRelationship(this, page));
-        attachments.add(new UploadRelationship(this, attachment));
+    public void created(Author owner, Page page, Attachment attachment) {
+        IPopulateFactory factory = new GenPopulateFactory();
+        pages.add(factory.populate(new CreationRelationship(owner, this, page)));
+        attachments.add(factory.populate(new UploadRelationship(owner, this, attachment)));
     }
 
     @Override
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

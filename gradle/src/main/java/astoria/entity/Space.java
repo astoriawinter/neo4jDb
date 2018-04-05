@@ -1,6 +1,7 @@
 package astoria.entity;
 
 import astoria.dummymaker.annotation.string.GenName;
+import astoria.dummymaker.annotation.string.GenSpaceType;
 import astoria.dummymaker.annotation.time.GenDate;
 import astoria.interfaces.Entity;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -13,7 +14,7 @@ public class Space implements Entity {
     @Id
     @GeneratedValue
     private Long id;
-    @GenName
+    @GenSpaceType
     private String filename;
     private String description;
     @GenDate

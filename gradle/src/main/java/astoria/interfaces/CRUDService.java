@@ -11,5 +11,7 @@ public interface CRUDService<T> {
 
     void link(T object, Entity entity, Entity linked);
 
+    void link(T object, T owner, Entity entity, Entity linked);
+
     void link(T object, Entity entity, Entity linked, Entity link);
 }

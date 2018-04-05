@@ -43,7 +43,7 @@ public abstract class BasicBundle<T> implements IBundle<T> {
 
     @Override
     public T getRandom() {
-        return preset.get(current().nextInt(0, preset.size() - 1));
+        return preset.get(current().nextInt(0, preset.size()));
     }
 
     @Override
