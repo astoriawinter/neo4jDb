@@ -15,4 +15,7 @@ public class LinksRelations {
         page = one;
         pages = two;
     }
+    public String getPageName(){
+        return pages.getName();
+    }
 }

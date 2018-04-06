@@ -28,4 +28,6 @@ public class Space implements Entity {
     public Long getId() {
         return id;
     }
+    public String getName() {
+        return name; }
 }

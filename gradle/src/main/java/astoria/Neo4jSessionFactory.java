@@ -1,5 +1,6 @@
 package astoria;
 
+import astoria.CRUD.AttachmentCRUD;
 import astoria.CRUD.AuthorCRUD;
 import astoria.CRUD.PageCRUD;
 import astoria.CRUD.SpaceCRUD;
@@ -28,6 +29,7 @@ public class Neo4jSessionFactory {
         List<Attachment> attachments = iProduceFactory.produce(Attachment.class, 5);
         AuthorCRUD authorCRUD = new AuthorCRUD();
         PageCRUD pageCRUD = new PageCRUD();
+        AttachmentCRUD attachmentCRUD = new AttachmentCRUD();
         Random rand = new Random();
         int pageGen, attGen, authorGen, spaceGen, crossedLinks;
         for (Author a: authors) {
@@ -42,16 +44,23 @@ public class Neo4jSessionFactory {
                 page = pages.get(pageGen);
                 attachment = attachments.get(attGen);
                 a.setAttachment(attachment);
-                a.setOwner(page);
+                //a.setOwner(page);
+                //a.removePageAttachment(attachment);
             }
             authorCRUD.createOrUpdate(a);
-            pageCRUD.createOrUpdate(page);
+            //pageCRUD.createOrUpdate(page);
         }
-        //Long id = authorCRUD.getIdByName("MILAN");
-        //Iterable<Page> iterable = getPageOwners("MILAN");
-        //SpaceCRUD spaceCRUD = new SpaceCRUD();
-        //Long id = spaceCRUD.getIdByName("Silverlight");
-        //spaceCRUD.delete(id);
+
+        /*Long id = authorCRUD.getIdByName("BARRY");
+        Author author = authorCRUD.find(id);
+        Long idA = attachmentCRUD.getIdByName("Composite.mkv");
+        Attachment attachment = attachmentCRUD.find(idA);
+        author.removePageAttachment(attachment);
+        authorCRUD.createOrUpdate(author);
+        Iterable<Page> iterable = getPageOwners("MILAN");
+        SpaceCRUD spaceCRUD = new SpaceCRUD();
+        Long id1 = spaceCRUD.getIdByName("Silverlight");
+        spaceCRUD.delete(id); */
         getInstance().endNeo4jSession();
     }
     public static Iterable<Page> getLinkedPages(String name){

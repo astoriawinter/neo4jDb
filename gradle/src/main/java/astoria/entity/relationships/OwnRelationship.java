@@ -17,4 +17,7 @@ public class OwnRelationship {
         this.author = author;
         this.page = page;
     }
+    public String getPageName(){
+        return page.getName();
+    }
 }

@@ -32,4 +32,7 @@ public class Attachment implements Entity {
     private Date modificationTime;
     public Attachment() {
     }
+    public String getName() {
+        return name;
+    }
 }

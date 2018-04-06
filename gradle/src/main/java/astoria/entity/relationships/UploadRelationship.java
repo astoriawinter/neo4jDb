@@ -16,4 +16,7 @@ public class UploadRelationship {
         this.author = author;
         this.attachment = attachment;
     }
+    public String getAttachmentName() {
+        return attachment.getName();
+    }
 }

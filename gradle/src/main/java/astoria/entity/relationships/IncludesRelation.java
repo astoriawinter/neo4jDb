@@ -16,4 +16,6 @@ public class IncludesRelation {
         this.page = page;
         this.attachment = attachment;
     }
+    public String getAttachmentName() {
+        return attachment.getName(); }
 }

@@ -16,4 +16,6 @@ public class IncludedInRelations {
         this.page = page;
         this.space = space;
     }
+    public String getSpaceName() {
+        return space.getName(); }
 }

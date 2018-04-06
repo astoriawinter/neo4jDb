@@ -15,6 +15,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
+
 @NodeEntity
 public class Author implements Entity {
     @Id
@@ -50,10 +52,20 @@ public class Author implements Entity {
         attachments.add(factory.populate(new UploadRelationship(this, attachment)));
     }
     public void removePageCreated(Page page){
-
+        Predicate<CreationRelationship> predicate =  p -> p.getPageName().equals(page.getName());
+        pageCreated.removeIf(predicate);
     }
-    public void removePageOwner(Author author){
-        //attachments.remove()
+    public void removePageAttachment(Attachment attachment){
+        Predicate<UploadRelationship> predicate =  p -> p.getAttachmentName().equals(attachment.getName());
+        attachments.removeIf(predicate);
+    }
+    public void removePageOwner(Page page){
+        Predicate<OwnRelationship> predicate =  p -> p.getPageName().equals(page.getName());
+        pageOwn.removeIf(predicate);
+    }
+    public void removePageCommented(Page page){
+        Predicate<CommentedRelationship> predicate =  p -> p.getPageName().equals(page.getName());
+        pageCommented.removeIf(predicate);
     }
 
     @Override
