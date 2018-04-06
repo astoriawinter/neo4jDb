@@ -11,7 +11,7 @@ import java.util.Map;
 abstract class GenericService<T> implements CRUDService<T> {
 
     private static final int DEPTH_LIST = 0;
-    private static final int DEPTH_ENTITY = 1;
+    private static final int DEPTH_ENTITY = 3;
     protected Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
     private T object;
     @Override
@@ -50,17 +50,6 @@ abstract class GenericService<T> implements CRUDService<T> {
             return find(e.getId());
         }
         return null;
-    }
-    @Override
-    public void link(T object, Entity entity, Entity linked) {
-    }
-
-    @Override
-    public void link(T object, T commented, T own, Entity entity, Entity linked) {
-    }
-
-    @Override
-    public void link(T object, Entity entity, Entity linked, Entity link) {
     }
 
     abstract Class<T> getEntityType();

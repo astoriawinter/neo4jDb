@@ -11,8 +11,4 @@ public class PageCRUD extends GenericService<Page>{
         return Page.class;
     }
 
-    @Override
-    public void link(Page page, Entity attachment, Entity space, Entity linkedPage) {
-        page.has((Attachment)attachment, (Space)space, (Page)linkedPage);
-    }
 }

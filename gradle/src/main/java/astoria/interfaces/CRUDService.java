@@ -11,9 +11,5 @@ public interface CRUDService<T> {
 
     T createOrUpdate(T object);
 
-    void link(T object, T commented, T own, Entity entity, Entity linked);
 
-    void link(T object, Entity entity, Entity linked);
-
-    void link(T object, Entity entity, Entity linked, Entity link);
 }

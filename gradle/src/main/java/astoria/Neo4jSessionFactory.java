@@ -29,7 +29,7 @@ public class Neo4jSessionFactory {
         AuthorCRUD authorCRUD = new AuthorCRUD();
         PageCRUD pageCRUD = new PageCRUD();
         Random rand = new Random();
-       /* int pageGen, attGen, authorGen, spaceGen, crossedLinks;
+        int pageGen, attGen, authorGen, spaceGen, crossedLinks;
         for (Author a: authors) {
             Page page = null;
             Attachment attachment;
@@ -41,12 +41,12 @@ public class Neo4jSessionFactory {
                 crossedLinks = rand.nextInt(30);
                 page = pages.get(pageGen);
                 attachment = attachments.get(attGen);
-                authorCRUD.link(a, authors.get(authorGen),authors.get(authorGen), page, attachment);
-                pageCRUD.link(page, attachment, spaces.get(spaceGen), pages.get(crossedLinks));
+                a.setAttachment(attachment);
+                a.setOwner(page);
             }
             authorCRUD.createOrUpdate(a);
             pageCRUD.createOrUpdate(page);
-        } */
+        }
         //Long id = authorCRUD.getIdByName("MILAN");
         //Iterable<Page> iterable = getPageOwners("MILAN");
         //SpaceCRUD spaceCRUD = new SpaceCRUD();

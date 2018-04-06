@@ -37,10 +37,13 @@ public class Page implements Entity {
     private Set<IncludedInRelations> spaces = new HashSet<>();
     public Page() {
     }
-
-    public void has(Attachment attachment, Space space, Page page) {
+    public void addSpace(Space space){
         spaces.add(new IncludedInRelations(this, space));
+    }
+    public void addAttachment(Attachment attachment){
         attachments.add(new IncludesRelation(this, attachment));
+    }
+    public void addPage(Page page) {
         pages.add(new LinksRelations(this, page));
     }
 

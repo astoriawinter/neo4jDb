@@ -34,14 +34,26 @@ public class Author implements Entity {
     private Set<OwnRelationship> pageOwn = new HashSet<>();
     @Relationship(type = "UPLOADED")
     private Set<UploadRelationship> attachments = new HashSet<>();
+    private static final IPopulateFactory factory = new GenPopulateFactory();
     public Author() {
     }
-    public void created(Author commented, Author owner, Page page, Attachment attachment) {
-        IPopulateFactory factory = new GenPopulateFactory();
+    public void setPageCreated(Page page) {
         pageCreated.add(factory.populate(new CreationRelationship(this, page)));
-        pageCommented.add(factory.populate(new CommentedRelationship(commented, page)));
-        pageOwn.add(factory.populate(new OwnRelationship(owner, page)));
+    }
+    public void setOwner(Page page) {
+        pageOwn.add(factory.populate(new OwnRelationship(this, page)));
+    }
+    public void setPageCommented(Page page) {
+        pageCommented.add(factory.populate(new CommentedRelationship(this, page)));
+    }
+    public void setAttachment(Attachment attachment) {
         attachments.add(factory.populate(new UploadRelationship(this, attachment)));
+    }
+    public void removePageCreated(Page page){
+
+    }
+    public void removePageOwner(Author author){
+        //attachments.remove()
     }
 
     @Override
