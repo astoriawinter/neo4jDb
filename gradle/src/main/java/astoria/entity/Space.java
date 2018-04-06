@@ -15,7 +15,7 @@ public class Space implements Entity {
     @GeneratedValue
     private Long id;
     @GenSpaceType
-    private String filename;
+    private String name;
     private String description;
     @GenDate
     private Date creationTime;

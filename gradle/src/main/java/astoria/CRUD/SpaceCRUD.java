@@ -24,6 +24,6 @@ public class SpaceCRUD extends GenericService<Space> {
     }
     @Override
     Class<Space> getEntityType() {
-        return null;
+        return Space.class;
     }
 }

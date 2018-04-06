@@ -23,6 +23,6 @@ public class AttachmentCRUD extends GenericService<Attachment> {
     }
     @Override
     Class<Attachment> getEntityType() {
-        return null;
+        return Attachment.class;
     }
 }

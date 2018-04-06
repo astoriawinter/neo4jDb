@@ -21,7 +21,7 @@ public class Attachment implements Entity {
     @GeneratedValue
     private Long id;
     @GenAttachmentType
-    private String filename;
+    private String name;
     @GenFileType
     private String fileType;
     @GenPhrase

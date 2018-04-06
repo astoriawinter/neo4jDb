@@ -2,6 +2,7 @@ package astoria;
 
 import astoria.CRUD.AuthorCRUD;
 import astoria.CRUD.PageCRUD;
+import astoria.CRUD.SpaceCRUD;
 import astoria.entity.*;
 import astoria.dummymaker.factory.IProduceFactory;
 import astoria.dummymaker.factory.impl.GenProduceFactory;
@@ -28,8 +29,8 @@ public class Neo4jSessionFactory {
         AuthorCRUD authorCRUD = new AuthorCRUD();
         PageCRUD pageCRUD = new PageCRUD();
         Random rand = new Random();
-        int pageGen, attGen, authorGen, spaceGen, crossedLinks;
-        /*for (Author a: authors) {
+       /* int pageGen, attGen, authorGen, spaceGen, crossedLinks;
+        for (Author a: authors) {
             Page page = null;
             Attachment attachment;
             for (int i = 0; i < pages.size() / authors.size(); i++) {
@@ -48,6 +49,9 @@ public class Neo4jSessionFactory {
         } */
         //Long id = authorCRUD.getIdByName("MILAN");
         //Iterable<Page> iterable = getPageOwners("MILAN");
+        //SpaceCRUD spaceCRUD = new SpaceCRUD();
+        //Long id = spaceCRUD.getIdByName("Silverlight");
+        //spaceCRUD.delete(id);
         getInstance().endNeo4jSession();
     }
     public static Iterable<Page> getLinkedPages(String name){
