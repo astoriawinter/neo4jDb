@@ -3,15 +3,17 @@ package astoria.interfaces;
 public interface CRUDService<T> {
     Iterable<T> findAll();
 
+    Long getIdByName(String name);
+
     T find(Long id);
 
     void delete(Long id);
 
     T createOrUpdate(T object);
 
-    void link(T object, Entity entity, Entity linked);
+    void link(T object, T commented, T own, Entity entity, Entity linked);
 
-    void link(T object, T owner, Entity entity, Entity linked);
+    void link(T object, Entity entity, Entity linked);
 
     void link(T object, Entity entity, Entity linked, Entity link);
 }

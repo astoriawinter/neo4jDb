@@ -4,12 +4,29 @@ import astoria.Neo4jSessionFactory;
 import astoria.interfaces.*;
 import org.neo4j.ogm.session.Session;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 abstract class GenericService<T> implements CRUDService<T> {
 
     private static final int DEPTH_LIST = 0;
     private static final int DEPTH_ENTITY = 1;
     protected Session session = Neo4jSessionFactory.getInstance().getNeo4jSession();
+    private T object;
+    @Override
+    public Long getIdByName(String name) {
+        Map<String, String> map = new HashMap<>();
+        map.put("param", name);
+        Iterable<T> iterable = session.query(getEntityType(), "MATCH (n: " + getEntityType().getSimpleName() +" ) WHERE n.name = {param} RETURN n", map);
+        if (iterable.iterator().hasNext()) {
+            object = iterable.iterator().next();
+        if (object instanceof Entity)
+            return ((Entity) object).getId();
+        }
+         return null;
+    }
+
     @Override
     public Iterable<T> findAll() {
         return session.loadAll(getEntityType(), DEPTH_LIST);
@@ -39,7 +56,7 @@ abstract class GenericService<T> implements CRUDService<T> {
     }
 
     @Override
-    public void link(T object, T owner, Entity entity, Entity linked) {
+    public void link(T object, T commented, T own, Entity entity, Entity linked) {
     }
 
     @Override

@@ -4,7 +4,9 @@ import astoria.dummymaker.annotation.string.GenNick;
 import astoria.dummymaker.annotation.string.GenTag;
 import astoria.dummymaker.factory.IPopulateFactory;
 import astoria.dummymaker.factory.impl.GenPopulateFactory;
+import astoria.entity.relationships.CommentedRelationship;
 import astoria.entity.relationships.CreationRelationship;
+import astoria.entity.relationships.OwnRelationship;
 import astoria.entity.relationships.UploadRelationship;
 import astoria.interfaces.Entity;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -25,15 +27,21 @@ public class Author implements Entity {
     @GenTag
     private String status;
     @Relationship(type = "CREATED")
-    private Set<CreationRelationship> pages = new HashSet<>();
+    private Set<CreationRelationship> pageCreated = new HashSet<>();
+    @Relationship(type = "COMMENTED")
+    private Set<CommentedRelationship> pageCommented = new HashSet<>();
+    @Relationship(type = "OWN")
+    private Set<OwnRelationship> pageOwn = new HashSet<>();
     @Relationship(type = "UPLOADED")
     private Set<UploadRelationship> attachments = new HashSet<>();
     public Author() {
     }
-    public void created(Author owner, Page page, Attachment attachment) {
+    public void created(Author commented, Author owner, Page page, Attachment attachment) {
         IPopulateFactory factory = new GenPopulateFactory();
-        pages.add(factory.populate(new CreationRelationship(owner, this, page)));
-        attachments.add(factory.populate(new UploadRelationship(owner, this, attachment)));
+        pageCreated.add(factory.populate(new CreationRelationship(this, page)));
+        pageCommented.add(factory.populate(new CommentedRelationship(commented, page)));
+        pageOwn.add(factory.populate(new OwnRelationship(owner, page)));
+        attachments.add(factory.populate(new UploadRelationship(this, attachment)));
     }
 
     @Override

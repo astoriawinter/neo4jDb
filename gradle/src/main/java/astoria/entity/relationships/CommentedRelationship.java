@@ -1,19 +1,18 @@
 package astoria.entity.relationships;
 
-import astoria.dummymaker.annotation.string.GenOwnerType;
 import astoria.entity.Author;
 import astoria.entity.Page;
 import org.neo4j.ogm.annotation.*;
 
-@RelationshipEntity(type = "CREATED")
-public class CreationRelationship {
+@RelationshipEntity(type = "COMMENTED")
+public class CommentedRelationship {
     @Id
     @GeneratedValue
     private Long relationshipId;
     @StartNode Author author;
     @EndNode Page page;
-    public CreationRelationship(){}
-    public CreationRelationship(Author author, Page page){
+    public CommentedRelationship(){}
+    public CommentedRelationship(Author author, Page page){
         this.author = author;
         this.page = page;
     }
