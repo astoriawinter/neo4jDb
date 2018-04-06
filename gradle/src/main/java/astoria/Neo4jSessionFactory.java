@@ -7,11 +7,11 @@ import astoria.entity.*;
 import astoria.dummymaker.factory.IProduceFactory;
 import astoria.dummymaker.factory.impl.GenProduceFactory;
 import org.neo4j.ogm.config.Configuration;
+import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Neo4jSessionFactory {
     private static final Configuration configuration = new Configuration.Builder()
@@ -54,8 +54,81 @@ public class Neo4jSessionFactory {
             commentCRUD.createOrUpdate(comment);
             pageCRUD.createOrUpdate(page);
         }
+
+        List<Page> pages1 = new ArrayList<>();
+        //getLinkedPages(473L).forEach(page -> pages1.add(page));
+        System.out.println(pages1);
+        // Page page = pageCRUD.find(473L);
         getInstance().endNeo4jSession();
     }
+    public static Iterable<Page> getLinkedPages(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Page)-[:LINKED]->(m) WHERE ID(m)={param} RETURN n", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Iterable<Page> getPageInSpace(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Page)-[:INCLUDED_IN]->(m:Space) WHERE ID(m)={param} RETURN n", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Iterable<Page> getAuthorsPages(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Author)-[:CREATED]->(m:Page) WHERE ID(n)={param} RETURN m", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Iterable<Page> getAuthorsComments(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Comment)-[:WROTE_BY]->(m:Author) WHERE ID(m)={param} RETURN n", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Iterable<Page> getAuthorsUploads(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Author)-[:UPLOADED]->(m:Attachment) WHERE ID(n)={param} RETURN m", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static Iterable<Page> getPagesIncludesAttachment(Long id){
+        try {
+            Map<String, Long> map = new HashMap<>();
+            map.put("param", id);
+            return sessionFactory.openSession().query(Page.class, "MATCH (n:Page)-[:INCLUDES]->(m:Attachment) WHERE ID(m)={param} RETURN n", map);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    //eto govno ne rabotyaet govno jopa.
+    //MATCH (n:Author)-[:CREATED]-(m:Page)-[:INCLUDED_IN]->(s:Space) WHERE ID(n)=316 RETURN s
     private static Neo4jSessionFactory factory = new Neo4jSessionFactory();
 
     public static Neo4jSessionFactory getInstance() {

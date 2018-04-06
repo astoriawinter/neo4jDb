@@ -17,15 +17,13 @@ public class Attachment implements Entity {
     public Long getId() {
         return id;
     }
-
-    public enum FileType {IMAGE, AUDIO, VIDEO}
     @Id
     @GeneratedValue
     private Long id;
     @GenAttachmentType
     private String filename;
     @GenFileType
-    private FileType fileType = FileType.IMAGE;
+    private String fileType;
     @GenPhrase
     private String description;
     @GenDate

@@ -8,7 +8,6 @@ repositories {
     mavenCentral()
     maven { url "http://repo2.maven.org/maven2/"}
 }
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'org.neo4j:neo4j-ogm-core:3.1.0'
